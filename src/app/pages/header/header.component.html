@@ -1,0 +1,43 @@
+<header>
+  <div class="collapse" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="title-h1 col-sm-8 col-md-7 py-4">
+          <h1>Minimarket MARINA</h1>
+        </div>
+
+        <div class="col-sm-4 offset-md-1 py-4 col text-end">
+          <h4>Opciones</h4>
+          <ul class="list-options">
+            @for (item of options; track item.id) {
+              <li><a class="options text-white" (click)="goToModule(item.routePath)">{{ item.title }}</a></li>
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-end">
+          <ul class="list-logout">
+              <li><a href="#" class="logout text-white" (click)="logOut()">Cerrar Sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar shadow-sm">
+    <div class="container">
+      <div class="row">
+        @if (isTextVisible) {
+          <a href="/home" class="navbar-brand d-flex align-items-center">
+            <strong>Minimarket MARINA</strong>
+          </a>
+        }
+      </div>
+      <div class="row">
+        <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" (click)="onClick()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

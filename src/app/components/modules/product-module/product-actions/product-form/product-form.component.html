@@ -1,0 +1,97 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">{{ title }}</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="mx-auto">
+                <form [formGroup]="form" (submit)="saveOrUpdate()">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="name" placeholder="">
+                    <label class="form-label">Nombre</label>
+                    @if (showError('name')) {
+                      <div class="message">
+                        {{ getErrorMessage('name') }}
+                      </div>
+                    }
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="description" placeholder="">
+                    <label class="form-label">Descripción</label>
+                    @if (showError('description')) {
+                      <div class="message">
+                        {{ getErrorMessage('description') }}
+                      </div>
+                    }
+                  </div>
+
+                  <!-- @if (create || edit) { -->
+                    <div class="form-floating">
+                      <select class="form-select" formControlName="category">
+                        <option value="" disabled selected>
+                          Seleccione una categoría
+                        </option>
+                        <option *ngFor="let category of categories" [value]="category.id">
+                          {{ category.description }}
+                        </option>
+                      </select>
+                    </div>
+                  <!-- } @else {
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="category" placeholder="">
+                      <label class="form-label">Categoría</label>
+                    </div>
+                  } -->
+
+                  @if (see) {
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                      <label class="form-label">Fecha de Registro</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                      <label class="form-label">Usuario Registro</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="status" placeholder="">
+                      <label class="form-label">Estado</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                      <label class="form-label">Fecha de Actualización</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                      <label class="form-label">Usuario Actualización</label>
+                    </div>
+                  }
+                  &nbsp;
+                  &nbsp;
+                  <div class="row button-row justify-content-center">
+                    <div class="col-sm-12 text-center">
+                      @if (create || edit) {
+                        <button class="btn-new-cus" type="submit" [disabled]="!form.valid">Guardar</button>
+                        &nbsp;
+                      }
+                      <button type="button" class="btn-back-cus" (click)="getBack()">Regresar</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>
+

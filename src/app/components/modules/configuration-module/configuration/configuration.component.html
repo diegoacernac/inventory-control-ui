@@ -1,0 +1,47 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">Configuración de Módulos</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+              @for (item of routesEnum; track item.id) {
+                <div class="col">
+                  <div class="card h-100 shadow-sm">
+                    <img src="{{ item.routeImagePath }}" class="card-img-top">
+                    <div class="card-body">
+                      <p class="card-text">{{ item.description }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <h2 class="title-card">{{ item.title }}</h2>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goToModule(item.routePath)">Vamos</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+
+            </div>
+            &nbsp;
+            &nbsp;
+            <div class="col-sm-2">
+              <button type="button" class="btn-back" (click)="getBack()">
+                Regresar
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>
