@@ -1,0 +1,29 @@
+<div class="album py-5 bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="title-home">Nueva Categoría</h1>
+    </div>
+    &nbsp;
+    &nbsp;
+    <div class="row">
+      <form [formGroup]="form" (submit)="saveOrUpdate()">
+        <div class="form-floating">
+          <input type="text" class="form-control" formControlName="description" placeholder="">
+          <label>Descripción</label>
+          @if (showError('description')) {
+            <div class="message">
+              {{ getErrorMessage('description') }}
+            </div>
+          }
+        </div>
+        &nbsp;
+        &nbsp;
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn-new w-100 py-2" type="submit" [disabled]="!form.valid">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

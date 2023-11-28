@@ -1,0 +1,26 @@
+form {
+  width: 80%;
+  max-width: 400px;
+  background-color: #f4f4f4 !important;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.max-width-form {
+  max-width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80% !important;
+  }
+}
+
+.message {
+  color: #fd1e1e
+}
+
+.album {
+  height: 450px;
+}

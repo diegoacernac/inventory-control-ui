@@ -1,0 +1,111 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">{{ title }}</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="mx-auto">
+                <form [formGroup]="form" (submit)="saveOrUpdate()">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="name" placeholder="">
+                    <label class="form-label">Nombres</label>
+                    @if (showError('name')) {
+                      <div class="message">
+                        {{ getErrorMessage('name') }}
+                      </div>
+                    }
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="lastNane" placeholder="">
+                    <label class="form-label">Apellidos</label>
+                    @if (showError('lastNane')) {
+                      <div class="message">
+                        {{ getErrorMessage('lastNane') }}
+                      </div>
+                    }
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="dni" placeholder="">
+                    <label class="form-label">DNI</label>
+                    @if (showError('dni')) {
+                      <div class="message">
+                        {{ getErrorMessage('dni') }}
+                      </div>
+                    }
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="email" placeholder="">
+                    <label class="form-label">Correo</label>
+                    @if (showError('email')) {
+                      <div class="message">
+                        {{ getErrorMessage('email') }}
+                      </div>
+                    }
+                  </div>
+                  @if (create) {
+                    <div class="form-floating">
+                      <input type="password" class="form-control" formControlName="password" placeholder="">
+                      <label class="form-label">Contraseña</label>
+                      @if (showError('password')) {
+                        <div class="message">
+                          {{ getErrorMessage('password') }}
+                        </div>
+                      }
+                    </div>
+                  }
+
+                  @if (see) {
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                      <label class="form-label">Fecha de Registro</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                      <label class="form-label">Usuario Registro</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="status" placeholder="">
+                      <label class="form-label">Estado</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="type" placeholder="">
+                      <label class="form-label">Tipo de Usuario</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                      <label class="form-label">Fecha de Actualización</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                      <label class="form-label">Usuario Actualización</label>
+                    </div>
+                  }
+                  &nbsp;
+                  &nbsp;
+                  <div class="row button-row justify-content-center">
+                    <div class="col-sm-12 text-center">
+                      @if (create || edit) {
+                        <button class="btn-new-cus" type="submit" [disabled]="!form.valid">Guardar</button>
+                        &nbsp;
+                      }
+                      <button type="button" class="btn-back-cus" (click)="getBack()">Regresar</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>

@@ -1,0 +1,75 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">Lista de Pedidos</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-md-4 d-flex">
+                <button type="button" class="btn-back m-0 p-0" (click)="getBack()">
+                  Regresar
+                </button>
+                &nbsp;
+                <button type="button" class="btn-new m-0 p-0" (click)="addUser()">
+                  Nuevo
+                </button>
+              </div>
+            </div>
+            &nbsp;
+            &nbsp;
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-success table-striped table-bordered table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nro. Pedido</th>
+                      <th scope="col">Fecha de Pedido</th>
+                      <th scope="col">Usuario Registro</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    @if (orders.length === 0) {
+                      <tr>
+                        <td colspan="5" class="text-center">No hay registros disponibles</td>
+                      </tr>
+                    } @else {
+                        @for (order of orders; track order.id) {
+                          <tr class="text-center align-middle">
+                            <td class="col-sm-3">{{ order.orderCode }}</td>
+                            <td class="col-sm-3">{{ order.registerDate | date: 'medium' }}</td>
+                            <td class="col-sm-2">{{ order.registerUser }}</td>
+                            <td class="col-sm-2">{{ order.provider.description }}</td>
+                            <td class="col-sm-4 col-md-4 align-middle">
+                              <div class="d-flex justify-content-center">
+                                <button class="btn-view btn btn-success btn-sm me-2" (click)="seeInformation(order.id)">
+                                  Ver
+                                </button>
+                                <button class="btn-edit-cus btn btn-primary btn-sm me-2" (click)="update(order.id)">
+                                  Editar
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>
