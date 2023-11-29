@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -9,7 +16,7 @@ main {
 }
 
 form {
-  width: 100%;
+  width: 70%;
   max-width: 1000px;
   background-color: #f4f4f4 !important;
   padding: 50px;
@@ -57,7 +64,8 @@ input:-webkit-autofill {
 }
 
 .btn-new-cus,
-.btn-back-cus {
+.btn-back-cus,
+.btn-view {
   width: 30%;
   height: 40px;
   margin-bottom: 10px;
@@ -73,6 +81,19 @@ input:-webkit-autofill {
 
 .btn-new-cus {
   background: #65ce76;
+  color: white;
+}
+
+.btn-edit {
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-edit {
+  background: #2f71d4;
   color: white;
 }
 
@@ -118,17 +139,4 @@ input:-webkit-autofill {
 /* Pseudo-clase :hover para resaltar el selector al pasar el ratón sobre él */
 .form-select:hover {
   border-color: #000; /* Ajusta el color del borde al pasar el ratón sobre el selector */
-}
-
-.btn-edit {
-  width: 80%;
-  height: 40px;
-  border: none;
-  border-radius: 30px;
-  overflow: hidden;
-}
-
-.btn-edit {
-  background: #2f71d4;
-  color: white;
 }

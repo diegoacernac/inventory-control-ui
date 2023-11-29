@@ -14,10 +14,6 @@ export class UserService {
     const user = collection(this.firestore, 'users')
     return collectionData(user, {idField: 'id'})
   }
-/*
-  getAllActive(): Observable<any[]> {
-    return this.http.get<any>(`${environment.api}/api/v1/provider/active`)
-  } */
 
   getById(id: string): Observable<any> {
     const user = doc(this.firestore, 'users', id)
@@ -25,7 +21,7 @@ export class UserService {
       getDoc(user)
         .then((docSnapshot) => {
           if (docSnapshot.exists()) {
-            observer.next({ id: docSnapshot.id, ...docSnapshot.data() });
+            observer.next({ id: docSnapshot.id, ...docSnapshot.data() })
           } else {
             observer.error('Document does not exist.')
           }
@@ -38,7 +34,8 @@ export class UserService {
 
   async save(user: any): Promise<void> {
     const collectionRef = collection(this.firestore, 'users')
-    await addDoc(collectionRef, user)
+    const docRef = doc(collectionRef, user.id)
+    await setDoc(docRef, user)
   }
 
   async update(id: string, user: any): Promise<void> {

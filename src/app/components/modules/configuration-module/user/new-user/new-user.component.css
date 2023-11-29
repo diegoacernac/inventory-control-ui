@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -9,16 +16,11 @@ main {
 }
 
 form {
-  width: 100%;
-  max-width: 1000px;
+  width: 40%;
   background-color: #f4f4f4 !important;
   padding: 50px;
   border-radius: 20px;
   margin: auto;
-}
-
-.max-width-form {
-  max-width: 400px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -58,9 +60,9 @@ input:-webkit-autofill {
 
 .btn-new-cus,
 .btn-back-cus {
-  width: 30%; /* Puedes ajustar según sea necesario */
+  width: 30%;
   height: 40px;
-  margin-bottom: 10px; /* Espaciado entre los botones */
+  margin-bottom: 10px;
   border: none;
   border-radius: 30px;
   overflow: hidden;

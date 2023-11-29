@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -9,16 +16,12 @@ main {
 }
 
 form {
-  width: 100%;
+  width: 50%;
   max-width: 1000px;
   background-color: #f4f4f4 !important;
   padding: 50px;
   border-radius: 20px;
   margin: auto;
-}
-
-.max-width-form {
-  max-width: 400px;
 }
 
 @media only screen and (max-width: 600px) {

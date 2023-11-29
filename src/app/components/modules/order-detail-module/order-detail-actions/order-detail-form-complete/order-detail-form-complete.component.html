@@ -1,25 +1,25 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container-fluid">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="title-home">Completar Pedido</h1>
-    </div>
-    &nbsp;
-    &nbsp;
     <div class="row">
       <form [formGroup]="form" (submit)="save()">
-        <div class="form-floating">
-          <input type="text" class="form-control" formControlName="product" placeholder="">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="title-home">Completar Pedido</h1>
+        </div>
+        &nbsp;
+        &nbsp;
+        <div>
           <label>Producto</label>
+          <input type="text" class="form-control" formControlName="product" placeholder="">
         </div>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" formControlName="batch" placeholder="">
+        <div>
           <label>Lote</label>
+          <input type="text" class="form-control" formControlName="batch" placeholder="">
         </div>
 
-        <div class="form-floating">
-          <input type="date" class="form-control" formControlName="dueDate" placeholder="">
+        <div>
           <label>Fecha de Vencimiento</label>
+          <input type="date" class="form-control" formControlName="dueDate" placeholder="">
           @if (showError('dueDate')) {
             <div class="message">
               {{ getErrorMessage('dueDate') }}
@@ -27,19 +27,19 @@
           }
         </div>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" formControlName="price" placeholder="">
+        <div>
           <label>Precio de Compra</label>
+          <input type="text" class="form-control" formControlName="price" placeholder="">
         </div>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" placeholder="" [(ngModel)]="marginPercentPrice" (ngModelChange)="calculateSalePrice()" [ngModelOptions]="{standalone: true}">
+        <div>
           <label>Margen (En Porcentaje)</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="marginPercentPrice" (ngModelChange)="calculateSalePrice()" [ngModelOptions]="{standalone: true}">
         </div>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" formControlName="salePrice" placeholder="">
+        <div>
           <label>Precio Sugerido</label>
+          <input type="text" class="form-control" formControlName="salePrice" placeholder="">
           @if (showError('salePrice')) {
             <div class="message">
               {{ getErrorMessage('salePrice') }}

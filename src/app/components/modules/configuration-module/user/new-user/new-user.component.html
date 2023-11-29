@@ -15,36 +15,36 @@
             <div class="row justify-content-center">
               <div class="mx-auto">
                 <form [formGroup]="form" (submit)="saveOrUpdate()">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="name" placeholder="">
+                  <div>
                     <label class="form-label">Nombres</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="">
                     @if (showError('name')) {
                       <div class="message">
                         {{ getErrorMessage('name') }}
                       </div>
                     }
                   </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="lastNane" placeholder="">
+                  <div>
                     <label class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" formControlName="lastNane" placeholder="">
                     @if (showError('lastNane')) {
                       <div class="message">
                         {{ getErrorMessage('lastNane') }}
                       </div>
                     }
                   </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="dni" placeholder="">
+                  <div>
                     <label class="form-label">DNI</label>
+                    <input type="text" class="form-control" formControlName="dni" placeholder="">
                     @if (showError('dni')) {
                       <div class="message">
                         {{ getErrorMessage('dni') }}
                       </div>
                     }
                   </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="email" placeholder="">
+                  <div>
                     <label class="form-label">Correo</label>
+                    <input type="text" class="form-control" formControlName="email" placeholder="">
                     @if (showError('email')) {
                       <div class="message">
                         {{ getErrorMessage('email') }}
@@ -52,9 +52,9 @@
                     }
                   </div>
                   @if (create) {
-                    <div class="form-floating">
-                      <input type="password" class="form-control" formControlName="password" placeholder="">
+                    <div>
                       <label class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" formControlName="password" placeholder="">
                       @if (showError('password')) {
                         <div class="message">
                           {{ getErrorMessage('password') }}
@@ -64,29 +64,29 @@
                   }
 
                   @if (see) {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                    <div>
                       <label class="form-label">Fecha de Registro</label>
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                    <div>
                       <label class="form-label">Usuario Registro</label>
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="status" placeholder="">
+                    <div>
                       <label class="form-label">Estado</label>
+                      <input type="text" class="form-control" formControlName="status" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="type" placeholder="">
+                    <div>
                       <label class="form-label">Tipo de Usuario</label>
+                      <input type="text" class="form-control" formControlName="type" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                    <div>
                       <label class="form-label">Fecha de Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                    <div>
                       <label class="form-label">Usuario Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
                     </div>
                   }
                   &nbsp;

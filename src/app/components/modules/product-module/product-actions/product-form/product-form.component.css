@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -9,8 +16,8 @@ main {
 }
 
 form {
-  width: 100%;
-  max-width: 1000px;
+  width: 50%;
+  height: auto;
   background-color: #f4f4f4 !important;
   padding: 50px;
   border-radius: 20px;
@@ -28,7 +35,7 @@ form {
 }
 
 .message {
-  color: #fd1e1e
+  color: #fd1e1e;
 }
 
 input:-webkit-autofill {
@@ -89,30 +96,6 @@ input:-webkit-autofill {
 .form-select option {
   background-color: #f4f4f4;
   color: rgba(0, 0, 0, .87);
-}
-
-/* Estilos para el mensaje de error */
-.message {
-  color: #ff0000; /* Color rojo o el color que desees para los mensajes de error */
-  font-size: 12px; /* Ajusta el tamaño del texto según tus preferencias */
-  margin-top: 5px; /* Ajusta el espaciado superior según tus preferencias */
-}
-
-/* Estilos adicionales para mantener la consistencia con los inputs */
-.form-label {
-  font-weight: 800 !important;
-  color: #737373;
-}
-
-.form-control {
-  color: rgba(0, 0, 0, .87);
-  border-bottom-color: rgba(0, 0, 0, .42);
-  background: #f4f4f4;
-  box-shadow: none !important;
-  border: none;
-  border-bottom: 1px solid;
-  border-radius: 4px 4px 0 0;
-  margin-bottom: 15px;
 }
 
 /* Pseudo-clase :hover para resaltar el selector al pasar el ratón sobre él */

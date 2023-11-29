@@ -164,10 +164,9 @@ export class OrderFormComponent implements OnInit {
           ...orderHead,
           id: this.id,
           orderCode: this.form.get('orderCode')?.getRawValue(),
-          status: 'FILLED',
+          status: this.edit ? 'FILLED' : this.fill ?'FINISHED' : 'FILLED',
           updateUser: this.userLogin
         }
-
         this.service.update(this.id, orderHeadUpdate).subscribe((response: any) => {
           if (response) {
             this.toastService.success(
@@ -201,6 +200,7 @@ export class OrderFormComponent implements OnInit {
                 price: detail.price,
                 quantity: detail.quantity,
                 isComplete: false,
+                measuringUnit: detail.measuringUnit,
                 order: {
                   id: response.id,
                 },
@@ -285,7 +285,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   disabledControls(): void {
-    if (this.see || this.fill) {
+    if (this.see) {
       this.form.get('orderCode')?.disable()
       this.form.get('provider')?.disable()
       this.form.get('user')?.disable()

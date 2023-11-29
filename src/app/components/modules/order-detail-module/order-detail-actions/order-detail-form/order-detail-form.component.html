@@ -1,10 +1,11 @@
-<div class="album py-5">
-  <h4 class="title-home">Detalle de Pedido</h4>
+<div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row justify-content-center">
       <div class="mx-auto">
         <form [formGroup]="form" (submit)="addElement()">
-          <div class="form-floating">
+          <h4 class="title-home">Detalle de Pedido</h4>
+          <div>
+            <label class="form-label">Producto</label>
             <select class="form-select" formControlName="product">
               <option value="" disabled selected>
                 Seleccione un Producto
@@ -15,9 +16,9 @@
             </select>
           </div>
 
-          <div class="form-floating">
-            <input type="number" class="form-control" formControlName="quantity" placeholder="">
+          <div>
             <label class="form-label">Cantidad</label>
+            <input type="number" class="form-control" formControlName="quantity" placeholder="">
             @if (showError('quantity')) {
               <div class="message">
                 {{ getErrorMessage('quantity') }}
@@ -25,14 +26,14 @@
             }
           </div>
 
-          <div class="form-floating">
-            <input type="text" class="form-control" formControlName="measuringUnit" placeholder="">
+          <div>
             <label class="form-label">Unidad de Medida</label>
+            <input type="text" class="form-control" formControlName="measuringUnit" placeholder="">
           </div>
 
-          <div class="form-floating">
-            <input type="number" class="form-control" formControlName="price" placeholder="">
+          <div>
             <label class="form-label">Precio</label>
+            <input type="number" class="form-control" formControlName="price" placeholder="">
             @if (showError('price')) {
               <div class="message">
                 {{ getErrorMessage('price') }}

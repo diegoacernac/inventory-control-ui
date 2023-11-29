@@ -15,19 +15,8 @@
             <div class="row justify-content-center">
               <div class="mx-auto">
                 <form [formGroup]="form" (submit)="saveOrUpdate()">
-                  @if (see) {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="orderCode" placeholder="">
-                      <label class="form-label">Nro de Pedido</label>
-                    </div>
-                  }
-
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="user" placeholder="">
-                    <label class="form-label">Usuario</label>
-                  </div>
-
-                  <div class="form-floating">
+                  <div>
+                    <label class="form-label">Proveedor</label>
                     <select class="form-select" formControlName="provider">
                       <option value="" disabled selected>
                         Seleccione un Proveedor
@@ -38,35 +27,50 @@
                     </select>
                   </div>
 
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="status" placeholder="">
-                    <label class="form-label">Estado</label>
-                  </div>
                   @if (see) {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
-                      <label class="form-label">Fecha de Registro</label>
-                    </div>
-
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
-                      <label class="form-label">Usuario Registro</label>
-                    </div>
-
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
-                      <label class="form-label">Fecha de Actualización</label>
-                    </div>
-
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
-                      <label class="form-label">Usuario Actualización</label>
+                    <div>
+                      <label class="form-label">Nro de Pedido</label>
+                      <input type="text" class="form-control" formControlName="orderCode" placeholder="">
                     </div>
                   }
 
+                  <div>
+                    <label class="form-label">Usuario</label>
+                    <input type="text" class="form-control" formControlName="user" placeholder="">
+                  </div>
+
+                  <div>
+                    <label class="form-label">Estado</label>
+                    <input type="text" class="form-control" formControlName="status" placeholder="">
+                  </div>
+                  &nbsp;
+                  &nbsp;
+                  @if (see) {
+                    <div>
+                      <label class="form-label">Fecha de Registro</label>
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Usuario Registro</label>
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Fecha de Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Usuario Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                    </div>
+                  }
+                  &nbsp;
+                  &nbsp;
                   <div class="row">
                     <div class="col-md-6">
-                      <h5>Detalle</h5>
+                      <h3>Detalle</h3>
                     </div>
 
                     @if (create) {
@@ -75,7 +79,6 @@
                       </div>
                     }
                   </div>
-                  &nbsp;
                   <div class="row">
                     <div class="table-responsive">
                       <table class="table table-success table-striped table-bordered table-sm">
@@ -104,7 +107,7 @@
                                   } @else {
                                     <td class="col-sm-4 col-md-4">{{ details.product.name }}</td>
                                   }
-                                  <td class="col-sm-2 col-md-2">{{ details.quantity + details.measuringUnit }}</td>
+                                  <td class="col-sm-2 col-md-2">{{ details.quantity + ' ' + details.measuringUnit }}</td>
                                   <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price }}</td>
                                   <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price * details.quantity }}</td>
                                   @if (fill) {
@@ -125,7 +128,7 @@
                       </table>
                     </div>
                   </div>
-
+                  &nbsp;
                   <div class="row button-row justify-content-center">
                     <div class="col-sm-12 text-center">
                       @if (create || edit || fill) {

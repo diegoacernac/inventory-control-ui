@@ -47,7 +47,9 @@ export class NewProviderComponent implements OnInit {
     this.createForm()
     this.id = this.route.snapshot.params['id']
     this.validateFlags()
-    this.getById()
+    if (this.id) {
+      this.getById()
+    }
     this.disabledControls()
     this.userLogin = localStorage.getItem('userName') + ' ' + localStorage.getItem('userLastName')
     this.create ? this.title = 'Nuevo Proveedor'

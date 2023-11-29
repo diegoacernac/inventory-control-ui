@@ -15,18 +15,31 @@
             <div class="row justify-content-center">
               <div class="mx-auto">
                 <form [formGroup]="form" (submit)="saveOrUpdate()">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="name" placeholder="">
+                  <div>
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" formControlName="category">
+                      <option value="" disabled selected>
+                        Seleccione una categoría
+                      </option>
+                      <option *ngFor="let category of categories" [value]="category.id">
+                        {{ category.description }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
                     <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="">
                     @if (showError('name')) {
                       <div class="message">
                         {{ getErrorMessage('name') }}
                       </div>
                     }
                   </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="description" placeholder="">
+
+                  <div>
                     <label class="form-label">Descripción</label>
+                    <input type="text" class="form-control" formControlName="description" placeholder="">
                     @if (showError('description')) {
                       <div class="message">
                         {{ getErrorMessage('description') }}
@@ -34,44 +47,26 @@
                     }
                   </div>
 
-                  <!-- @if (create || edit) { -->
-                    <div class="form-floating">
-                      <select class="form-select" formControlName="category">
-                        <option value="" disabled selected>
-                          Seleccione una categoría
-                        </option>
-                        <option *ngFor="let category of categories" [value]="category.id">
-                          {{ category.description }}
-                        </option>
-                      </select>
-                    </div>
-                  <!-- } @else {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="category" placeholder="">
-                      <label class="form-label">Categoría</label>
-                    </div>
-                  } -->
-
                   @if (see) {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                    <div>
                       <label class="form-label">Fecha de Registro</label>
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                    <div>
                       <label class="form-label">Usuario Registro</label>
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="status" placeholder="">
+                    <div>
                       <label class="form-label">Estado</label>
+                      <input type="text" class="form-control" formControlName="status" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                    <div>
                       <label class="form-label">Fecha de Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                    <div>
                       <label class="form-label">Usuario Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
                     </div>
                   }
                   &nbsp;

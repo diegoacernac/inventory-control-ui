@@ -33,8 +33,8 @@ export class DialogService {
 
   openOrderDetailDialog() {
     return this.dialog.open(OrderDetailFormComponent, {
-      width: "1000px",
-      height: "600px",
+      width: "900px",
+      height: "755px",
       disableClose: false,
       data: {
         data: []
@@ -44,8 +44,8 @@ export class DialogService {
 
   openCompleteOrderlDialog(detail: any) {
     return this.dialog.open(OrderDetailFormCompleteComponent, {
-      width: "700px",
-      height: "600px",
+      width: "1000px",
+      height: "800px",
       disableClose: false,
       data: {
         obj: detail

@@ -100,14 +100,13 @@ export class OrderDetailFormCompleteComponent implements OnInit {
         id: this.data.obj.product.id
       },
       stock: this.data.obj.quantity,
-      measuringUnit: this.data.measuringUnit,
+      measuringUnit: this.data.obj.measuringUnit,
       batch: this.form.get('batch')?.getRawValue(),
       purchasePrice: this.data.obj.price,
       salePrice: this.form.get('salePrice')?.getRawValue(),
       dueDate: this.form.get('dueDate')?.getRawValue(),
       registerUser: this.userLogin
     }
-
     if (this.form.valid) {
       this.service.save(productInventoryObj).subscribe((res: any) => {
         if (res) {

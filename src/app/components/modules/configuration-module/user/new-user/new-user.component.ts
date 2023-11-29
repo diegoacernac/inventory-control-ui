@@ -47,7 +47,9 @@ export class NewUserComponent implements OnInit {
     this.createForm()
     this.id = this.route.snapshot.params['id']
     this.validateFlags()
-    this.getById()
+    if (this.id) {
+      this.getById()
+    }
     this.disabledControls()
     this.userLogin = localStorage.getItem('userName') + ' ' + localStorage.getItem('userLastName')
     this.create ? this.title = 'Nuevo Usuario'
@@ -164,7 +166,6 @@ export class NewUserComponent implements OnInit {
             lastNane: lastNane,
             dni: dni,
             email: email,
-            password: password,
             type: 'admin',
             status: StatusEnum.ACTIVE,
             registerDate: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
