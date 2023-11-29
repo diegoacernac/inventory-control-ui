@@ -14,6 +14,8 @@ import { ListUserComponent } from './components/modules/configuration-module/use
 import { NewUserComponent } from './components/modules/configuration-module/user/new-user/new-user.component';
 import { ProductFormComponent } from './components/modules/product-module/product-actions/product-form/product-form.component';
 import { OrderFormComponent } from './components/modules/order-module/order-actions/order-form/order-form.component';
+import { ProductInventoryListComponent } from './components/modules/product-inventory/product-inventory-list/product-inventory-list.component';
+import { ProductInventoryFormComponent } from './components/modules/product-inventory/product-inventory-form/product-inventory-form.component';
 
 export const routes: Routes = [
   {
@@ -128,6 +130,26 @@ export const routes: Routes = [
   {
     path: 'update-user/:edit/:id',
     component: NewUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'product-inventory',
+    component: ProductInventoryListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-product-inventory/:create',
+    component: ProductInventoryFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'info-product-inventory/:see/:id',
+    component: ProductInventoryFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'update-product-inventory/:edit/:id',
+    component: ProductInventoryFormComponent,
     canActivate: [AuthGuard],
   },
 ];
