@@ -1,0 +1,96 @@
+<div class="album py-5">
+  <h4 class="title-home">Detalle de Pedido</h4>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="mx-auto">
+        <form [formGroup]="form" (submit)="addElement()">
+          <div class="form-floating">
+            <select class="form-select" formControlName="product">
+              <option value="" disabled selected>
+                Seleccione un Producto
+              </option>
+              <option *ngFor="let product of products" [value]="product.id">
+                {{ product.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" formControlName="quantity" placeholder="">
+            <label class="form-label">Cantidad</label>
+            @if (showError('quantity')) {
+              <div class="message">
+                {{ getErrorMessage('quantity') }}
+              </div>
+            }
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" formControlName="measuringUnit" placeholder="">
+            <label class="form-label">Unidad de Medida</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" formControlName="price" placeholder="">
+            <label class="form-label">Precio</label>
+            @if (showError('price')) {
+              <div class="message">
+                {{ getErrorMessage('price') }}
+              </div>
+            }
+          </div>
+
+          <div class="row">
+            <div class="table-responsive">
+              <table class="table table-success table-striped table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  @if (details.length === 0) {
+                    <tr>
+                      <td colspan="5" class="text-center">No hay registros disponibles</td>
+                    </tr>
+                  } @else {
+                      @for (details of details; track details.product) {
+                        <tr class="text-center align-middle">
+                          <td class="col-sm-4 col-md-4">{{ details.name }}</td>
+                          <td class="col-sm-2 col-md-2">{{ details.quantity + '' +  details.measuringUnit }}</td>
+                          <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price }}</td>
+                          <td class="col-sm-4 col-md-4 align-middle">
+                            <div class="d-flex justify-content-center">
+                              <button class="btn-delete btn btn-danger btn-sm" (click)="deleteRow(details.id)">
+                                Quitar
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                    }
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+          &nbsp;
+          &nbsp;
+          <div class="row button-row justify-content-center">
+            <div class="col-sm-12 text-center">
+              <button class="btn-new-cus" type="submit" [disabled]="!form.valid">Agregar</button>
+              &nbsp;
+              <button type="button" class="btn-back-cus" (click)="close()">Cerar</button>
+            </div>
+          </div>
+        </form>
+        &nbsp;
+      </div>
+    </div>
+  </div>
+</div>
+
+
