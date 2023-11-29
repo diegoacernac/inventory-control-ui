@@ -27,59 +27,116 @@
                     <label class="form-label">Usuario</label>
                   </div>
 
-                  <!-- @if (create || edit) { -->
-                    <div class="form-floating">
-                      <select class="form-select" formControlName="provider">
-                        <option value="" disabled selected>
-                          Seleccione un Proveedor
-                        </option>
-                        <option *ngFor="let provider of providers" [value]="provider.id">
-                          {{ provider.description }}
-                        </option>
-                      </select>
-                    </div>
-                  <!-- } @else {
-                    <div class="form-floating">
-                      <input type="text" class="form-control" formControlName="provider" placeholder="">
-                      <label class="form-label">Proveedor</label>
-                    </div>
-                  } -->
+                  <div class="form-floating">
+                    <select class="form-select" formControlName="provider">
+                      <option value="" disabled selected>
+                        Seleccione un Proveedor
+                      </option>
+                      <option *ngFor="let provider of providers" [value]="provider.id">
+                        {{ provider.description }}
+                      </option>
+                    </select>
+                  </div>
 
                   <div class="form-floating">
                     <input type="text" class="form-control" formControlName="status" placeholder="">
                     <label class="form-label">Estado</label>
                   </div>
-
                   @if (see) {
                     <div class="form-floating">
                       <input type="text" class="form-control" formControlName="registerDate" placeholder="">
                       <label class="form-label">Fecha de Registro</label>
                     </div>
+
                     <div class="form-floating">
                       <input type="text" class="form-control" formControlName="registerUser" placeholder="">
                       <label class="form-label">Usuario Registro</label>
                     </div>
+
                     <div class="form-floating">
                       <input type="text" class="form-control" formControlName="updateDate" placeholder="">
                       <label class="form-label">Fecha de Actualización</label>
                     </div>
+
                     <div class="form-floating">
                       <input type="text" class="form-control" formControlName="updateUser" placeholder="">
                       <label class="form-label">Usuario Actualización</label>
                     </div>
                   }
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h5>Detalle</h5>
+                    </div>
+
+                    @if (create) {
+                      <div class="col-md-6 text-md-end">
+                        <button type="button" class="btn-view btn btn-success btn-sm me-2" (click)="openModal()">Agregar</button>
+                      </div>
+                    }
+                  </div>
                   &nbsp;
-                  &nbsp;
+                  <div class="row">
+                    <div class="table-responsive">
+                      <table class="table table-success table-striped table-bordered table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Total</th>
+                            @if (fill) {
+                              <th scope="col">Acciones</th>
+                            }
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                          @if (detailsResume.length === 0) {
+                            <tr>
+                              <td colspan="4" class="text-center">No hay registros disponibles</td>
+                            </tr>
+                          } @else {
+                              @for (details of detailsResume; track details.id) {
+                                <tr class="text-center align-middle">
+                                  @if (create) {
+                                    <td class="col-sm-4 col-md-4">{{ details.name }}</td>
+                                  } @else {
+                                    <td class="col-sm-4 col-md-4">{{ details.product.name }}</td>
+                                  }
+                                  <td class="col-sm-2 col-md-2">{{ details.quantity + details.measuringUnit }}</td>
+                                  <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price }}</td>
+                                  <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price * details.quantity }}</td>
+                                  @if (fill) {
+                                    <td class="col-sm-4 col-md-4 align-middle">
+                                      <div class="d-flex justify-content-center">
+                                        @if (!details.isComplete) {
+                                          <button type="button" class="btn-edit btn btn-primary btn-sm me-2" (click)="completeOrder(details)">
+                                            Completar
+                                          </button>
+                                        }
+                                      </div>
+                                    </td>
+                                  }
+                                </tr>
+                            }
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
                   <div class="row button-row justify-content-center">
                     <div class="col-sm-12 text-center">
-                      @if (create || edit) {
-                        <button class="btn-new-cus" type="submit" [disabled]="!form.valid">Guardar</button>
+                      @if (create || edit || fill) {
+                        <button class="btn-new-cus" type="submit" [disabled]="detailsResume.length === 0 || !form.valid">Guardar</button>
                         &nbsp;
                       }
                       <button type="button" class="btn-back-cus" (click)="getBack()">Regresar</button>
                     </div>
                   </div>
                 </form>
+                &nbsp;
               </div>
             </div>
           </div>

@@ -55,9 +55,16 @@
                                 <button class="btn-view btn btn-success btn-sm me-2" (click)="seeInformation(order.id)">
                                   Ver
                                 </button>
-                                <button class="btn-edit-cus btn btn-primary btn-sm me-2" (click)="update(order.id)">
-                                  Editar
-                                </button>
+                                @if (order.status == 'PENDING') {
+                                  <button class="btn-edit-cus btn btn-primary btn-sm me-2" (click)="update(order.id)">
+                                    Confirmar
+                                  </button>
+                                }
+                                @if (order.status == 'FILLED') {
+                                  <button class="btn-edit-cus btn btn-primary btn-sm me-2" (click)="changeState(order.id)">
+                                    Finalizar
+                                  </button>
+                                }
                               </div>
                             </td>
                           </tr>

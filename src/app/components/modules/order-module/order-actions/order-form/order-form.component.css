@@ -119,3 +119,16 @@ input:-webkit-autofill {
 .form-select:hover {
   border-color: #000; /* Ajusta el color del borde al pasar el ratón sobre el selector */
 }
+
+.btn-edit {
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-edit {
+  background: #2f71d4;
+  color: white;
+}

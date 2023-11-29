@@ -71,6 +71,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'complete-order/:fill/:id',
+    component: OrderFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'report',
     component: ReportComponent,
     canActivate: [AuthGuard],

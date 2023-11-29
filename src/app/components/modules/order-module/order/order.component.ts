@@ -22,6 +22,7 @@ export class OrderComponent implements OnInit {
   create: boolean = true
   edit: boolean = true
   see: boolean = true
+  fill: boolean = true
 
   constructor(
     private router: Router,
@@ -53,5 +54,9 @@ export class OrderComponent implements OnInit {
 
   update(id: number): void {
     this.router.navigate([`/update-order/${this.edit}/${id}`])
+  }
+
+  changeState(id: number): void {
+    this.router.navigate([`/complete-order/${this.fill}/${id}`])
   }
 }

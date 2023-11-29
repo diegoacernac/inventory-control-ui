@@ -9,6 +9,10 @@ import { OrderService } from '../../../../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProviderService } from '../../../../../services/provider.service';
 import { StatusEnum } from '../../../../enums/status.enum';
+import { OrderDetailFormComponent } from '../../../order-detail-module/order-detail-actions/order-detail-form/order-detail-form.component';
+import { DialogService } from '../../../../../utils/dialog.service';
+import { OrderDetailService } from '../../../../../services/order-detail.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-order-form',
@@ -18,6 +22,7 @@ import { StatusEnum } from '../../../../enums/status.enum';
     HeaderComponent,
     FooterComponent,
     ReactiveFormsModule,
+    OrderDetailFormComponent
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css',
@@ -29,10 +34,13 @@ export class OrderFormComponent implements OnInit {
   create: boolean = false
   edit: boolean = false
   see: boolean = false
+  fill: boolean = false
+  isComplete: boolean = false
   userLogin: string = ''
-  title: string = ''
+  title: string = 'Finalizar Pedido'
   orders: Array<any> = []
   providers: Array<any> = []
+  detailsResume: Array<any> = []
 
   constructor(
     private router: Router,
@@ -43,6 +51,8 @@ export class OrderFormComponent implements OnInit {
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private providerService: ProviderService,
+    private utils: DialogService,
+    private orderDetailService: OrderDetailService,
   ) {
     this.userLogin = localStorage.getItem('userName') + ' ' + localStorage.getItem('userLastName')
   }
@@ -58,9 +68,9 @@ export class OrderFormComponent implements OnInit {
       this.getById()
     }
     this.create ? this.title = 'Nuevo Pedido'
-    : this.edit ? this.title = 'Editar Registro'
+    : this.edit ? this.title = 'Confirmar Pedido'
     : this.see ? this.title = 'Información de Pedido'
-    : ''
+    : 'Finalizar Pedido'
   }
 
   createForm(): void {
@@ -77,7 +87,14 @@ export class OrderFormComponent implements OnInit {
   }
 
   getById(): void {
-    this.service.getById(this.id).subscribe((order: any) => {
+    const calls = [
+      this.service.getById(this.id),
+      this.orderDetailService.getAll(),
+    ]
+
+    forkJoin(calls).subscribe(([
+      order, detail
+    ]) => {
       this.orderData = order
       this.form.get('orderCode')?.setValue(this.orderData.orderCode)
       this.form.get('user')?.setValue(this.orderData.user)
@@ -89,6 +106,8 @@ export class OrderFormComponent implements OnInit {
         this.form.get('updateDate')?.setValue(this.datePipe.transform(this.orderData.updateDate, 'yyyy-MM-dd'))
         this.form.get('updateUser')?.setValue(this.orderData.updateUser)
       }
+
+      this.detailsResume = detail.filter((e: any) => e.order.id == this.orderData.id)
     })
   }
 
@@ -100,7 +119,7 @@ export class OrderFormComponent implements OnInit {
 
   loadDefaultData(): void {
     this.form.get('user')?.setValue(this.userLogin)
-    this.form.get('status')?.setValue('PENDING')
+    this.form.get('status')?.setValue('PENDIENTE')
     this.form.get('user')?.disable()
     this.form.get('status')?.disable()
   }
@@ -109,16 +128,24 @@ export class OrderFormComponent implements OnInit {
     this.create = this.route.snapshot.params['create']
     this.edit = this.route.snapshot.params['edit']
     this.see = this.route.snapshot.params['see']
+    this.fill = this.route.snapshot.params['fill']
 
     if (this.create) {
       this.edit = false
       this.see = false
+      this.fill = false
     } else if (this.edit) {
       this.create = false
       this.see = false
+      this.fill = false
+    } else if (this.see) {
+      this.create = false
+      this.edit = false
+      this.fill = false
     } else {
       this.create = false
       this.edit = false
+      this.see = false
     }
   }
 
@@ -137,7 +164,7 @@ export class OrderFormComponent implements OnInit {
           ...orderHead,
           id: this.id,
           orderCode: this.form.get('orderCode')?.getRawValue(),
-          status: StatusEnum.FILLED,
+          status: 'FILLED',
           updateUser: this.userLogin
         }
 
@@ -169,6 +196,24 @@ export class OrderFormComponent implements OnInit {
       } else {
         this.service.save(orderHead).subscribe((response: any) => {
           if (response) {
+            this.detailsResume.forEach((detail: any) => {
+              const detailObj = {
+                price: detail.price,
+                quantity: detail.quantity,
+                isComplete: false,
+                order: {
+                  id: response.id,
+                },
+                product: {
+                  id: detail.product,
+                },
+                registerUser: this.userLogin,
+              }
+              this.orderDetailService.save(detailObj).subscribe((details: any) => {
+                this.detailsResume = []
+                this.getBack()
+              })
+            })
             this.toastService.success(
               "Pedido registrado con éxito!",
               "Éxito!",
@@ -179,6 +224,7 @@ export class OrderFormComponent implements OnInit {
               }
             )
             this.clearForm()
+            this.getBack()
           } else {
             this.toastService.error(
               "Error al registrar el pedido.",
@@ -193,6 +239,24 @@ export class OrderFormComponent implements OnInit {
         })
       }
     }
+  }
+
+  completeOrder(detail: any): void {
+    const dialogRef = this.utils.openCompleteOrderlDialog(detail)
+    dialogRef.afterClosed().subscribe((res: any) => {
+      this.orderDetailService.getAll().subscribe((response: any) => {
+        this.detailsResume = response.filter((e: any) => e.order.id == this.orderData.id)
+      })
+    })
+  }
+
+  openModal(): void {
+    const dialogRef = this.utils.openOrderDetailDialog()
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.detailsResume = res
+      }
+    })
   }
 
   getBack(): void {
@@ -221,11 +285,15 @@ export class OrderFormComponent implements OnInit {
   }
 
   disabledControls(): void {
-    if (this.see) {
+    if (this.see || this.fill) {
       this.form.get('orderCode')?.disable()
       this.form.get('provider')?.disable()
       this.form.get('user')?.disable()
       this.form.get('status')?.disable()
+      this.form.get('registerDate')?.disable()
+      this.form.get('registerUser')?.disable()
+      this.form.get('updateDate')?.disable()
+      this.form.get('updateUser')?.disable()
     }
   }
 }
