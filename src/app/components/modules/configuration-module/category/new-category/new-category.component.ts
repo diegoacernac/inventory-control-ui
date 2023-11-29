@@ -136,8 +136,14 @@ export class NewCategoryComponent implements OnInit {
 
   getErrorMessage(formControlName: string): string {
     const formControl = this.form.get(formControlName)
-    return formControl?.hasError('required')
-      ? 'Este campo es obligatorio.'
-      : '';
+    if (formControl?.hasError('required')) {
+      return 'Este campo es obligatorio.';
+    }
+  
+    if (formControl?.hasError('onlyLetters')) {
+      return 'Solo se permiten letras en este campo.';
+    }
+  
+    return '';
   }
 }
