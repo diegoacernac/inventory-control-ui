@@ -12,6 +12,7 @@ import { CategoryService } from '../../../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from '../../../../models/category.model';
 import { StatusEnum } from '../../../../enums/status.enum';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-category',
@@ -50,10 +51,20 @@ export class NewCategoryComponent implements OnInit {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      description: [null, [Validators.required]]
+      description: [null, [Validators.required, this.onlyLetters()]]
     })
   }
 
+  onlyLetters() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const onlyLettersRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/u;
+      if (control.value && !onlyLettersRegex.test(control.value)) {
+        return { 'onlyLetters': true };
+      }
+      return null;
+    };
+  }
+  
   loadCategoryById(): void {
     this.categoryService.loadCategoryById(this.data.id).subscribe((data:any) => {
       this.categoryData = data
@@ -138,6 +149,8 @@ export class NewCategoryComponent implements OnInit {
     const formControl = this.form.get(formControlName)
     return formControl?.hasError('required')
       ? 'Este campo es obligatorio.'
+      : formControl?.hasError('onlyLetters')
+      ? 'Solo se permiten letras en este campo'
       : '';
   }
 }
