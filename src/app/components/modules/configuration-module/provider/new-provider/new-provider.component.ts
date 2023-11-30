@@ -9,6 +9,7 @@ import { AlertService } from '../../../../../utils/alerts/alert.service';
 import { ProviderService } from '../../../../../services/provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { StatusEnum } from '../../../../enums/status.enum';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-provider',
@@ -62,7 +63,7 @@ export class NewProviderComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [null, [Validators.required]],
       address: [null, [Validators.required]],
-      phone: [null, [Validators.required, Validators.minLength(9)]],
+      phone: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), this.onlyNumbers()]],
       email: [null, [Validators.required, Validators.email]],
       registerDate: [null],
       registerUser: [null],
@@ -70,6 +71,25 @@ export class NewProviderComponent implements OnInit {
       updateDate: [null],
       updateUser: [null],
     })
+  }
+
+  onlyNumbers() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const onlyNumbersRegex = /^[0-9]+$/;
+  
+      if (control.value) {
+        if (!onlyNumbersRegex.test(control.value)) {
+          return { 'onlyNumbers': true };
+        }
+  
+        // Verificar si el número de teléfono comienza con "9"
+        if (!control.value.startsWith('9')) {
+          return { 'startsWithNine': true };
+        }
+      }
+  
+      return null;
+    };
   }
 
   getById(): void {
@@ -192,6 +212,8 @@ export class NewProviderComponent implements OnInit {
       ? 'Ingresa un correo electrónico válido.'
       : formControl?.hasError('minlength')
       ? `La longitud mínima para el teléfono es ${formControl.getError('minlength').requiredLength} caracteres.`
+      : formControl?.hasError('onlyNumbers')
+      ? 'Solo se permiten numeros en este campo y debe empezar con 9'
       : '';
   }
 
