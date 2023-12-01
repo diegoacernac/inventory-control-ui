@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { Router } from '@angular/router'
 import { doc, getDoc } from "firebase/firestore"
 import { getFirestore } from "firebase/firestore"
+import { ToastrService } from 'ngx-toastr'
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private firebaseAuthenticationService: AngularFireAuth,
     private router: Router,
+    private toastrService: ToastrService,
   ) {
   }
 
@@ -28,7 +30,15 @@ export class AuthService {
       this.loadUserDataFromFiresstore(uuidUSer)
     })
     .catch((error: any) => {
-      console.log(error.message)
+      this.toastrService.error(
+        "Credenciales incorrectas, por favor, revise sus datos.",
+        "Error",
+        {
+          timeOut: 3000,
+          closeButton: true,
+          positionClass: 'toast-top-right',
+        }
+      )
     })
   }
 

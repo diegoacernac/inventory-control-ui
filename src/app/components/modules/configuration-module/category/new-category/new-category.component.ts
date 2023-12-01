@@ -57,14 +57,14 @@ export class NewCategoryComponent implements OnInit {
 
   onlyLetters() {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const onlyLettersRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/u;
+      const onlyLettersRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/u
       if (control.value && !onlyLettersRegex.test(control.value)) {
         return { 'onlyLetters': true };
       }
       return null;
     };
   }
-  
+
   loadCategoryById(): void {
     this.categoryService.loadCategoryById(this.data.id).subscribe((data:any) => {
       this.categoryData = data

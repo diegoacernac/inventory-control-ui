@@ -1,0 +1,38 @@
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80% !important;
+  }
+}
+
+.album {
+  max-width: 500px;
+  max-height: 250px;
+  background-color: #f4f4f4 !important;
+  padding: 90px;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.title-home {
+  white-space: nowrap;
+}
+
+.btn-negative,
+.btn-delete {
+  width: 30%;
+  height: 40px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-delete {
+  background: #ca6464;
+  color: white;
+}
+
+.btn-negative {
+  background: #658fce;
+  color: white;
+}

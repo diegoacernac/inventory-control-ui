@@ -44,7 +44,7 @@ export class UserService {
   }
 
 
-  delete(id: number) {
+  delete(id: string) {
     const collectionRef = doc(this.firestore, `users/${id}`)
     return deleteDoc(collectionRef)
   }

@@ -5,6 +5,8 @@ import { FooterComponent } from '../../../../pages/footer/footer.component';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../../../../services/product.service';
+import { OrderDetailService } from '../../../../services/order-detail.service';
+import { DialogService } from '../../../../utils/dialog.service';
 
 @Component({
   selector: 'app-product',
@@ -26,7 +28,9 @@ export class ProductComponent implements OnInit {
   constructor(
     private router: Router,
     private service: ProductService,
-    private toast: ToastrService,
+    private toastr: ToastrService,
+    private detailService: OrderDetailService,
+    private utils: DialogService,
   ) {}
 
   ngOnInit(): void {
@@ -56,28 +60,51 @@ export class ProductComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.service.inactive(id).subscribe(res => {
-      if (res) {
-        this.toast.success(
-          "Registro eliminado con éxito!",
-          "Éxito!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
-          }
+    let detailArray: Array<any> = []
+    this.detailService.getAll().subscribe((details: any) => {
+      detailArray = details;
+      let idFind = detailArray.find(e => e.product.id && e.product.id == id)
+
+      if (idFind && idFind.product) {
+        this.toastr.error(
+          "No puedes eliminar este registro, debido a que está asociado a algunos pedidos.",
+              "Error!",
+              {
+                timeOut: 3000,
+                closeButton: true,
+                positionClass: 'toast-top-right',
+              }
         )
-        this.loadProducts()
       } else {
-        this.toast.error(
-          "Error al eliminar el producto.",
-          "Error!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
+        const dialog = this.utils.openConfirmationDialog('ELiminar', '¿Desea eliminar este registro?')
+        dialog.afterClosed().subscribe(result => {
+          if (result) {
+            this.service.inactive(id).subscribe(res => {
+              if (res) {
+                this.toastr.success(
+                  "Registro eliminado con éxito!",
+                  "Éxito!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+                this.loadProducts()
+              } else {
+                this.toastr.error(
+                  "Error al eliminar el producto.",
+                  "Error!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+              }
+            })
           }
-        )
+        })
       }
     })
   }

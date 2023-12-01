@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'
-import { Router } from '@angular/router'
 import { AlertService } from '../../../../utils/alerts/alert.service'
 import { FormActionService } from '../../../../utils/form-actions/form-action.service'
 import { AuthService } from '../../../../services/auth.service'
@@ -42,11 +41,12 @@ export class LoginComponent implements OnInit {
       let email = this.loginForm.controls['email'].getRawValue()
       let password = this.loginForm.controls['password'].getRawValue()
 
-      let formControlArray: Array<any> = []
-      this.authService.loginWithEmailAndPassword(email, password)
-      this.formActionService.clearForm(this.loginForm, formControlArray)
-    } else {
-      this.loginForm.markAllAsTouched()
+      let formControlArray: Array<string> = ['email', 'password'];
+      this.authService.loginWithEmailAndPassword(email, password).then((response: any) => {
+        if (!response) {
+          this.formActionService.clearForm(this.loginForm, formControlArray)
+        }
+      })
     }
   }
 

@@ -55,8 +55,21 @@ export class ListUserComponent implements OnInit {
     this.router.navigate([`/update-user/${this.edit}/${id}`])
   }
 
-  delete(id: number): void {
-    this.service.delete(id).then((res: any) => {
+  delete(id: string): void {
+
+    const idLocal = localStorage.getItem('idUser')
+    if (id == idLocal) {
+      this.toastr.error(
+        "Este usuario esta logueado en el sistema actualmente, no puede ser eliminado.",
+        "Error!",
+        {
+          timeOut: 3000,
+          closeButton: true,
+          positionClass: 'toast-top-right',
+        }
+      )
+    } else {
+      this.service.delete(id).then((res: any) => {
         this.toastr.success(
           "Registro eliminado con éxito!",
           "Éxito!",
@@ -67,16 +80,17 @@ export class ListUserComponent implements OnInit {
           }
         )
         this.loadUsers()
-    }).catch((error: any) => {
-      this.toastr.error(
-        "Error al eliminar al usuario.",
-        "Error!",
-        {
-          timeOut: 3000,
-          closeButton: true,
-          positionClass: 'toast-top-right',
-        }
-      )
-    })
+      }).catch((error: any) => {
+        this.toastr.error(
+          "Error al eliminar al usuario.",
+          "Error!",
+          {
+            timeOut: 3000,
+            closeButton: true,
+            positionClass: 'toast-top-right',
+          }
+        )
+      })
+    }
   }
 }

@@ -6,6 +6,8 @@ import { FooterComponent } from '../../../../../pages/footer/footer.component';
 import { NewProviderComponent } from '../new-provider/new-provider.component';
 import { ProviderService } from '../../../../../services/provider.service';
 import { ToastrService } from 'ngx-toastr';
+import { OrderService } from '../../../../../services/order.service';
+import { DialogService } from '../../../../../utils/dialog.service';
 
 @Component({
   selector: 'app-list-provider',
@@ -29,6 +31,8 @@ export class ListProviderComponent implements OnInit {
     private router: Router,
     private service: ProviderService,
     private toastr: ToastrService,
+    private orderService: OrderService,
+    private utils: DialogService,
   ) {}
 
   ngOnInit(): void {
@@ -58,28 +62,51 @@ export class ListProviderComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.service.inactive(id).subscribe(res => {
-      if (res) {
-        this.toastr.success(
-          "Proveedor eliminado con éxito!",
-          "Éxito!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
-          }
-        )
-        this.loadProviders()
-      } else {
+    let orderArray: Array<any> = []
+    this.orderService.getAll().subscribe((orders: any) => {
+      orderArray = orders
+      let idFind = orderArray.find(e => e.provider && e.provider.id == id)
+
+      if (idFind && idFind.provider) {
         this.toastr.error(
-          "Error al eliminar al proveedor.",
-          "Error!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
-          }
+          "No puedes eliminar este registro, debido a que está asociado a algunos pedidos.",
+              "Error!",
+              {
+                timeOut: 3000,
+                closeButton: true,
+                positionClass: 'toast-top-right',
+              }
         )
+      } else {
+        const dialog = this.utils.openConfirmationDialog('ELiminar', '¿Desea eliminar este registro?')
+        dialog.afterClosed().subscribe(result => {
+          if (result) {
+            this.service.inactive(id).subscribe(res => {
+              if (res) {
+                this.toastr.success(
+                  "Proveedor eliminado con éxito!",
+                  "Éxito!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+                this.loadProviders()
+              } else {
+                this.toastr.error(
+                  "Error al eliminar al proveedor.",
+                  "Error!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+              }
+            })
+          }
+        })
       }
     })
   }

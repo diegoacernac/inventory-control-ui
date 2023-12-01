@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { DialogService } from '../../../../../utils/dialog.service';
 import { CategoryService } from '../../../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from '../../../../../services/product.service';
 @Component({
   selector: 'app-list-category',
   standalone: true,
@@ -30,6 +31,7 @@ export class ListCategoryComponent  implements OnInit {
     private utils: DialogService,
     private categoryService: CategoryService,
     private toastr: ToastrService,
+    private productService: ProductService,
   ) {}
 
   ngOnInit(): void {
@@ -58,28 +60,51 @@ export class ListCategoryComponent  implements OnInit {
   }
 
   delete(id: number): void {
-    this.categoryService.inactiveCategory(id).subscribe(res => {
-      if (res) {
-        this.toastr.success(
-          "Categoría eliminada con éxito!",
-          "Éxito!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
-          }
-        )
-        this.loadCategories()
-      } else {
+    let productArray: Array<any> = []
+    this.productService.getAllActive().subscribe((products: any) => {
+      productArray = products;
+      let idFind = productArray.find(e => e.category && e.category.id == id);
+
+      if (idFind && idFind.category) {
         this.toastr.error(
-          "Error al eliminar la categoría.",
-          "Error!",
-          {
-            timeOut: 3000,
-            closeButton: true,
-            positionClass: 'toast-top-right',
-          }
+          "No puedes eliminar este registro, debido a que está asociado a algunos productos.",
+              "Error!",
+              {
+                timeOut: 3000,
+                closeButton: true,
+                positionClass: 'toast-top-right',
+              }
         )
+      } else {
+        const dialog = this.utils.openConfirmationDialog('ELiminar', '¿Desea eliminar este registro?')
+        dialog.afterClosed().subscribe(result => {
+          if (result) {
+            this.categoryService.inactiveCategory(id).subscribe(res => {
+              if (res) {
+                this.toastr.success(
+                  "Categoría eliminada con éxito!",
+                  "Éxito!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+                this.loadCategories()
+              } else {
+                this.toastr.error(
+                  "Error al eliminar la categoría.",
+                  "Error!",
+                  {
+                    timeOut: 3000,
+                    closeButton: true,
+                    positionClass: 'toast-top-right',
+                  }
+                )
+              }
+            })
+          }
+        })
       }
     })
   }
