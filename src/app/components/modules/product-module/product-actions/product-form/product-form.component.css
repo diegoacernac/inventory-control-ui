@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+form {
+  width: 50%;
+  height: auto;
+  background-color: #f4f4f4 !important;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.max-width-form {
+  max-width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80% !important;
+  }
+}
+
+.message {
+  color: #fd1e1e;
+}
+
+input:-webkit-autofill {
+  background-color: #8a6662;
+}
+
+.form-label {
+  font-weight: 800 !important;
+  color: #737373;
+}
+
+.form-control {
+  color: rgba(0,0,0,.87);
+  border-bottom-color: rgba(0,0,0,.42);
+  background: #f4f4f4;
+  box-shadow: none !important;
+  border: none;
+  border-bottom: 1px solid;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 15px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-new-cus,
+.btn-back-cus {
+  width: 30%;
+  height: 40px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-back-cus {
+  background: #ca6464;
+  color: white;
+}
+
+.btn-new-cus {
+  background: #65ce76;
+  color: white;
+}
+
+.form-select {
+  color: rgba(0, 0, 0, .87);
+  border: 1px solid rgba(0, 0, 0, .42);
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 8px; /* Ajusta el espaciado interno según tus preferencias */
+  margin-bottom: 15px;
+}
+
+/* Estilos para las opciones del selector */
+.form-select option {
+  background-color: #f4f4f4;
+  color: rgba(0, 0, 0, .87);
+}
+
+/* Pseudo-clase :hover para resaltar el selector al pasar el ratón sobre él */
+.form-select:hover {
+  border-color: #000; /* Ajusta el color del borde al pasar el ratón sobre el selector */
+}

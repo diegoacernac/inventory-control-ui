@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+.btn-edit-cus,
+.btn-delete-cus,
+.btn-view {
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-edit-cus {
+  background: rgb(15, 134, 150);
+  color: white;
+}
+
+.btn-delete-cus {
+  background: #d42f2f;
+  color: white;
+}
+
+.btn-view {
+  background: #2f71d4;
+  color: white;
+}

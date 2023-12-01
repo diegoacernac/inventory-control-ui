@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+form {
+  width: 50%;
+  max-width: 1000px;
+  background-color: #f4f4f4 !important;
+  padding: 50px;
+  border-radius: 20px;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80% !important;
+  }
+}
+
+.message {
+  color: #fd1e1e
+}
+
+input:-webkit-autofill {
+  background-color: #8a6662;
+}
+
+.form-label {
+  font-weight: 800 !important;
+  color: #737373;
+}
+
+.form-control {
+  color: rgba(0,0,0,.87);
+  border-bottom-color: rgba(0,0,0,.42);
+  background: #f4f4f4;
+  box-shadow: none !important;
+  border: none;
+  border-bottom: 1px solid;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 15px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-new-cus,
+.btn-back-cus {
+  width: 30%; /* Puedes ajustar según sea necesario */
+  height: 40px;
+  margin-bottom: 10px; /* Espaciado entre los botones */
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.btn-back-cus {
+  background: #ca6464;
+  color: white;
+}
+
+.btn-new-cus {
+  background: #65ce76;
+  color: white;
+}

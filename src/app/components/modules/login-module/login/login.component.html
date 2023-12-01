@@ -1,0 +1,38 @@
+<body>
+  <div class="container-fluid">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="max-auto">
+      <h4 class="text-center">
+        Inicio de Sesión
+      </h4>
+
+      <div class="mb-3 mt-5">
+        <label for="emailFor" class="form-label">
+          Correo
+        </label>
+        <input type="email" class="form-control" formControlName="email" id="emailId" autocomplete="off">
+        @if (showError('email')) {
+          <div class="message">
+            {{ getErrorMessage('email') }}
+          </div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordFor" class="form-label">
+          Contraseña
+        </label>
+        <input type="password" class="form-control" formControlName="password" id="passwordId" autocomplete="off">
+
+        @if (showError('password')) {
+          <div class="message">
+            {{ getErrorMessage('password') }}
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="btn-new mt-5" [disabled]="!loginForm.valid">
+        Ingresar
+      </button>
+    </form>
+  </div>
+</body>

@@ -1,0 +1,151 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">{{ title }}</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="mx-auto">
+                <form [formGroup]="form" (submit)="saveOrUpdate()">
+                  <div>
+                    <label class="form-label">Proveedor</label>
+                    <select class="form-select" formControlName="provider">
+                      <option value="" disabled selected>
+                        Seleccione un Proveedor
+                      </option>
+                      <option *ngFor="let provider of providers" [value]="provider.id">
+                        {{ provider.description }}
+                      </option>
+                    </select>
+                  </div>
+
+                  @if (see) {
+                    <div>
+                      <label class="form-label">Nro de Pedido</label>
+                      <input type="text" class="form-control" formControlName="orderCode" placeholder="">
+                    </div>
+                  }
+
+                  <div>
+                    <label class="form-label">Usuario</label>
+                    <input type="text" class="form-control" formControlName="user" placeholder="">
+                  </div>
+
+                  <div>
+                    <label class="form-label">Estado</label>
+                    <input type="text" class="form-control" formControlName="status" placeholder="">
+                  </div>
+                  &nbsp;
+                  &nbsp;
+                  @if (see) {
+                    <div>
+                      <label class="form-label">Fecha de Registro</label>
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Usuario Registro</label>
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Fecha de Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateDate" placeholder="">
+                    </div>
+
+                    <div>
+                      <label class="form-label">Usuario Actualización</label>
+                      <input type="text" class="form-control" formControlName="updateUser" placeholder="">
+                    </div>
+                  }
+                  &nbsp;
+                  &nbsp;
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>Detalle</h3>
+                    </div>
+
+                    @if (create) {
+                      <div class="col-md-6 text-md-end">
+                        <button type="button" class="btn-view btn btn-success btn-sm me-2" (click)="openModal()">Agregar</button>
+                      </div>
+                    }
+                  </div>
+                  <div class="row">
+                    <div class="table-responsive">
+                      <table class="table table-success table-striped table-bordered table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Total</th>
+                            @if (fill) {
+                              <th scope="col">Acciones</th>
+                            }
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                          @if (detailsResume.length === 0) {
+                            <tr>
+                              <td colspan="4" class="text-center">No hay registros disponibles</td>
+                            </tr>
+                          } @else {
+                              @for (details of detailsResume; track details.id) {
+                                <tr class="text-center align-middle">
+                                  @if (create) {
+                                    <td class="col-sm-4 col-md-4">{{ details.name }}</td>
+                                  } @else {
+                                    <td class="col-sm-4 col-md-4">{{ details.product.name }}</td>
+                                  }
+                                  <td class="col-sm-2 col-md-2">{{ details.quantity + ' ' + details.measuringUnit }}</td>
+                                  <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price }}</td>
+                                  <td class="col-sm-2 col-md-2">{{ 'S/.' + details.price * details.quantity }}</td>
+                                  @if (fill) {
+                                    <td class="col-sm-4 col-md-4 align-middle">
+                                      <div class="d-flex justify-content-center">
+                                        @if (!details.isComplete) {
+                                          <button type="button" class="btn-edit btn btn-primary btn-sm me-2" (click)="completeOrder(details)">
+                                            Completar
+                                          </button>
+                                        }
+                                      </div>
+                                    </td>
+                                  }
+                                </tr>
+                            }
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  &nbsp;
+                  <div class="row button-row justify-content-center">
+                    <div class="col-sm-12 text-center">
+                      @if (create || edit || fill) {
+                        <button class="btn-new-cus" type="submit" [disabled]="detailsResume.length === 0 || !form.valid">Guardar</button>
+                        &nbsp;
+                      }
+                      <button type="button" class="btn-back-cus" (click)="getBack()">Regresar</button>
+                    </div>
+                  </div>
+                </form>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>
+
