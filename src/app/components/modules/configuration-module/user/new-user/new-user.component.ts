@@ -9,6 +9,7 @@ import { AlertService } from '../../../../../utils/alerts/alert.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../../../services/auth.service';
 import { StatusEnum } from '../../../../enums/status.enum';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-user',
@@ -60,9 +61,9 @@ export class NewUserComponent implements OnInit {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required]],
-      lastNane: [null, [Validators.required]],
-      dni: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      name: [null, [Validators.required, this.onlyLetters()]],
+      lastNane: [null, [Validators.required, this.onlyLetters()]],
+      dni: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), this.onlyNumbers()]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       registerDate: [null],
@@ -72,6 +73,27 @@ export class NewUserComponent implements OnInit {
       updateDate: [null],
       updateUser: [null],
     })
+  }
+
+  onlyLetters() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const onlyLettersRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/u;
+      if (control.value && !onlyLettersRegex.test(control.value)) {
+        return { 'onlyLetters': true };
+      }
+      return null;
+    };
+  }
+
+  onlyNumbers() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const onlyNumbersRegex = /^[0-9]+$/;  
+      if (control.value && !onlyNumbersRegex.test(control.value)) {
+        return { 'onlyNumbers': true };
+      }
+  
+      return null;
+    };
   }
 
   getById(): void {
@@ -215,10 +237,14 @@ export class NewUserComponent implements OnInit {
     const formControl = this.form.get(controlName)
     return formControl?.hasError('required')
       ? 'Este campo es obligatorio.'
+      : formControl?.hasError('onlyLetters')
+      ? 'Solo se permiten letras en este campo'
       : formControl?.hasError('email')
       ? 'Ingresa un correo electrónico válido.'
       : formControl?.hasError('minlength')
-      ? `La longitud mínima para el teléfono es ${formControl.getError('minlength').requiredLength} caracteres.`
+      ? `La longitud mínima para el DNI es ${formControl.getError('minlength').requiredLength} caracteres.`
+      : formControl?.hasError('onlyNumbers')
+      ? 'Solo se permiten números en este campo'
       : '';
   }
 
