@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   isTextVisible: boolean = true
   @Input() isHomePrincipal: boolean = true
   options: Array<any> = []
+  see: boolean = true
 
   constructor(
     private authService: AuthService,
@@ -34,6 +35,11 @@ export class HeaderComponent implements OnInit {
 
   goToModule(optionPath: string): void {
     this.router.navigate([`/${optionPath}`])
+  }
+
+  seeProfile(): void {
+    let id = localStorage.getItem('idUser')
+    this.router.navigate([`/profile/${this.see}/${id}`])
   }
 
   logOut(): void {

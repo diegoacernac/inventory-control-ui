@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductInventoryListComponent implements OnInit {
   inventoryData: Array<any> = [];
-  create: boolean = true
+  //create: boolean = true
   edit: boolean = true
   see: boolean = true
 
@@ -39,9 +39,9 @@ export class ProductInventoryListComponent implements OnInit {
     })
   }
 
-  addData(): void {
+  /* addData(): void {
     this.router.navigate(['/add-product-inventory', this.create]);
-  }
+  } */
 
   getBack(): void {
     this.router.navigate(['/home'])

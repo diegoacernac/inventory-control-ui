@@ -16,16 +16,11 @@ main {
 }
 
 form {
-  width: 50%;
-  height: auto;
+  width: 40%;
   background-color: #f4f4f4 !important;
   padding: 50px;
   border-radius: 20px;
   margin: auto;
-}
-
-.max-width-form {
-  max-width: 400px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -35,7 +30,7 @@ form {
 }
 
 .message {
-  color: #fd1e1e;
+  color: #fd1e1e
 }
 
 input:-webkit-autofill {
@@ -64,7 +59,8 @@ input:-webkit-autofill {
 }
 
 .btn-new-cus,
-.btn-back-cus {
+.btn-back-cus,
+.btn-view-cus {
   width: 30%;
   height: 40px;
   margin-bottom: 10px;
@@ -83,22 +79,7 @@ input:-webkit-autofill {
   color: white;
 }
 
-.form-select {
-  color: rgba(0, 0, 0, .87);
-  border: 1px solid rgba(0, 0, 0, .42);
-  background: #f4f4f4;
-  border-radius: 4px;
-  padding: 8px; /* Ajusta el espaciado interno según tus preferencias */
-  margin-bottom: 15px;
-}
-
-/* Estilos para las opciones del selector */
-.form-select option {
-  background-color: #f4f4f4;
-  color: rgba(0, 0, 0, .87);
-}
-
-/* Pseudo-clase :hover para resaltar el selector al pasar el ratón sobre él */
-.form-select:hover {
-  border-color: #000; /* Ajusta el color del borde al pasar el ratón sobre el selector */
+.btn-view-cus {
+  background: #2f71d4;
+  color: white;
 }

@@ -16,6 +16,7 @@ import { ProductFormComponent } from './components/modules/product-module/produc
 import { OrderFormComponent } from './components/modules/order-module/order-actions/order-form/order-form.component';
 import { ProductInventoryListComponent } from './components/modules/product-inventory/product-inventory-list/product-inventory-list.component';
 import { ProductInventoryFormComponent } from './components/modules/product-inventory/product-inventory-form/product-inventory-form.component';
+import { ProfileViewComponent } from './components/modules/profile-module/profile-view/profile-view.component';
 
 export const routes: Routes = [
   {
@@ -150,6 +151,11 @@ export const routes: Routes = [
   {
     path: 'update-product-inventory/:edit/:id',
     component: ProductInventoryFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/:see/:id',
+    component: ProfileViewComponent,
     canActivate: [AuthGuard],
   },
 ];

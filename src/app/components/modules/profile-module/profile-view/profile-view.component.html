@@ -1,0 +1,97 @@
+<body>
+  <div class="wrapper">
+    <app-header></app-header>
+      <main>
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="title-home">{{ userLogin }}</h1>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="mx-auto">
+                <form [formGroup]="form" (submit)="update()">
+                  <div>
+                    <label class="form-label">Nombres</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="">
+                    @if (showError('name')) {
+                      <div class="message">
+                        {{ getErrorMessage('name') }}
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" formControlName="lastNane" placeholder="">
+                    @if (showError('lastNane')) {
+                      <div class="message">
+                        {{ getErrorMessage('lastNane') }}
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <label class="form-label">DNI</label>
+                    <input type="text" class="form-control" formControlName="dni" placeholder="">
+                    @if (showError('dni')) {
+                      <div class="message">
+                        {{ getErrorMessage('dni') }}
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <label class="form-label">Correo</label>
+                    <input type="text" class="form-control" formControlName="email" placeholder="">
+                    @if (showError('email')) {
+                      <div class="message">
+                        {{ getErrorMessage('email') }}
+                      </div>
+                    }
+                  </div>
+
+                  @if (see) {
+                    <div>
+                      <label class="form-label">Fecha de Registro</label>
+                      <input type="text" class="form-control" formControlName="registerDate" placeholder="">
+                    </div>
+                    <div>
+                      <label class="form-label">Usuario Registro</label>
+                      <input type="text" class="form-control" formControlName="registerUser" placeholder="">
+                    </div>
+                    <div>
+                      <label class="form-label">Estado</label>
+                      <input type="text" class="form-control" formControlName="status" placeholder="">
+                    </div>
+                    <div>
+                      <label class="form-label">Tipo de Usuario</label>
+                      <input type="text" class="form-control" formControlName="type" placeholder="">
+                    </div>
+                  }
+                  &nbsp;
+                  &nbsp;
+                  <div class="row button-row justify-content-center">
+                    <div class="col-sm-12 text-center">
+                      @if (edit) {
+                        <button class="btn-new-cus" type="submit" [disabled]="!form.valid">Guardar</button>
+                        &nbsp;
+                        <button class="btn-view-cus" type="button" (click)="toSeeMode()">Solo Ver</button>
+                        &nbsp;
+                      } @else {
+                        <button class="btn-new-cus" type="button" (click)="toEditMode()">Editar</button>
+                        &nbsp;
+                      }
+                      <button type="button" class="btn-back-cus" (click)="getBack()">Regresar</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <app-footer></app-footer>
+  </div>
+</body>
