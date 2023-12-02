@@ -76,18 +76,13 @@ export class NewProviderComponent implements OnInit {
   onlyNumbers() {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const onlyNumbersRegex = /^[0-9]+$/;
-  
+
       if (control.value) {
         if (!onlyNumbersRegex.test(control.value)) {
           return { 'onlyNumbers': true };
         }
-  
-        // Verificar si el número de teléfono comienza con "9"
-        if (!control.value.startsWith('9')) {
-          return { 'startsWithNine': true };
-        }
       }
-  
+
       return null;
     };
   }
